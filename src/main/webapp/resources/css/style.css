@@ -72,6 +72,24 @@ article {
     margin-bottom: 10px;
 }
 
+h2{
+    text-align: center;
+}
+
+.datatable{
+    width: 100%;
+}
+
+.datatable tr th {
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.datatable tr td {
+    text-align: center;
+}
+
 footer {
     text-align: center;
     color: black;

@@ -5,8 +5,9 @@
     <title>Page d'acceuil</title>
     <link href="../webjars/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"/>
     <link href="../resources/css/style.css" rel="stylesheet"/>
+    <link href="../webjars/datatables/1.9.4/media/css/jquery.dataTables.css" rel="stylesheet"/>
 </head>
-<body ng-app="userModule" >
+<body ng-app="UserApp" >
 <div class="container">
     <header class="row" ng-include="'../header.html'"></header>
 
@@ -15,16 +16,32 @@
         <aside class="col-sm-2 menu" ng-include="'../menu.html'"></aside>
 
 
-        <section class="col-sm-offset-1 col-sm-9">
+        <section class="col-sm-offset-1 col-sm-9"  ng-controller="UserController as ctrl" ng-init="init()">
             <div class="row">
                 <article class="col-md-12">
-                        <div ng-controller="UserController">
-                            Liste des utilisateurs : <br/>
-                            <div>
-                                <div ng-repeat="util in users">
-                                    <div>{{util.firstName+" "+util.lastName}}</div>
-                                </div>
-                            </div>
+                        <div>
+                            <h2>Liste des utilisateurs :</h2> <br/>
+                            <table class="datatable">
+                                <thead>
+                                <tr>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Nom d'utilisateur</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="util in ctrl.users">
+                                        <td><span ng-bind="util.firstName"></span></td>
+                                        <td><span ng-bind="util.lastName"></span></td>
+                                        <td><span ng-bind="util.email"></span></td>
+                                        <td><span ng-bind="util.ssoId"></span></td>
+                                        <td><button ng-click="ctrl.deleteUser(util.id)" type="button" class="btn btn-danger custom-width">Supprimer</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
                         </div>
                 </article>
             </div>

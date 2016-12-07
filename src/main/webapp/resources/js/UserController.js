@@ -1,6 +1,6 @@
 var APP_NAME = "/modeleArchiAngularJs";
 
-var app = angular.module('userModule',[]);
+var app = angular.module('UserApp', []);
 
 
 
@@ -41,14 +41,21 @@ app.factory('UserFactory',function ($http,$q,$location) {
 });
 
 
-app.controller('UserController', function ($scope, UserFactory) {
+app.controller('UserController', ['$scope', 'UserFactory', function ($scope, UserFactory) {
 
-    getAllUsers();
+    $scope.init = getAllUsers();
+
+    var self = this;
+
+    self.users=[];
+
+    self.getAllUsers = getAllUsers;
+    self.deleteUser = deleteUser;
 
     function getAllUsers() {
        UserFactory.getAllUser().then(
            function (d) {
-               $scope.users = d;
+               self.users = d;
            },
            function(errResponse){
                console.error('Erreur lors de la récupération des utilisateurs');
@@ -58,12 +65,10 @@ app.controller('UserController', function ($scope, UserFactory) {
 
     function deleteUser(id) {
         UserFactory.deleteUser(id).then(
-            function (d) {
-                getAllUsers();
-            },
+                getAllUsers(),
             function(errResponse){
                 console.error('Erreur lors de la supression de l\'utilisateur');
             }
         )
     }
-});
+}]);
