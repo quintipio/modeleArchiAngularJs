@@ -23,13 +23,16 @@ public class Commune {
 
     @NotNull
     @Size(max = 5)
+    @Column(name="CODE_INSEE", length=5, nullable=false)
     String codeInsee;
 
     @NotNull
     @Size(max = 5)
+    @Column(name="CODE_POSTAL", length=5, nullable=false)
     String codePostal;
 
     @NotNull
+    @Column(name="LIBELLE", length=5, nullable=false)
     String libelle;
 
 

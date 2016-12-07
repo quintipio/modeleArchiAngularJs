@@ -4,73 +4,38 @@
     <meta charset="UTF-8">
     <title>Page d'acceuil</title>
     <link href="webjars/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"/>
-    <link href="ressources/css/style.css" rel="stylesheet"/>
+    <link href="resources/css/style.css" rel="stylesheet"/>
 </head>
-<body>
+<body ng-app="">
 <div class="container">
-    <header class="row">
-        <div class="row">
-            <div class="col-md-12">
-                Entête du site
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <ul class="nav navbar-nav col-sm-6">
-                                <li><a href="/index.html">Acceuil</a></li>
-                            </ul>
-                                <div class="col-lg-offset-2 col-sm-4 header-right">
-                                    Bonjour  XXXX <a href="/logout">Se déconnecter</a>
-                                </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <header class="row" ng-include="'header.html'"></header>
 
 
     <div class="row">
-        <aside class="col-sm-2 menu">
-            Menu
-            <ul>
-                <li><a href="/public/create.hml">Créer un compte</a></li>
-            </ul>
-        </aside>
+        <aside class="col-sm-2 menu" ng-include="'menu.html'"></aside>
 
         <section class="col-sm-offset-1 col-sm-9">
             <div class="row">
                 <article class="col-md-12">
 
 
-                    Espace de test
+                    Page de login
 
 
 
                 </article>
             </div>
         </section>
+
     </div>
 
     <div class="clearfix visible-sm-block"></div>
-
-    <footer class="row">
-        <div class="col-md-12">
-            <ul>
-                <li><a>Lien 1</a></li>
-                <li><a>Lien 2</a></li>
-                <li><a>Lien 3</a></li>
-            </ul>
-        </div>
-    </footer>
+    <footer class="row" ng-include="'footer.html'"></footer>
 </div>
 </body>
+
 <script src="webjars/jquery/3.1.1/jquery.min.js"  type="text/javascript"></script>
 <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="webjars/angularjs/1.4.4/angular.min.js" type="text/javascript"></script>"
+<script src="webjars/angularjs/1.4.4/angular.min.js" type="text/javascript"></script>
 
 </html>
