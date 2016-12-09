@@ -6,7 +6,7 @@
     <link href="../webjars/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"/>
     <link href="../resources/css/style.css" rel="stylesheet"/>
 </head>
-<body ng-app="">
+<body ng-app="UserApp">
 <div class="container">
     <header class="row" ng-include="'../header.html'"></header>
 
@@ -14,13 +14,139 @@
     <div class="row">
         <aside class="col-sm-2 menu" ng-include="'../menu.html'"></aside>
 
-        <section class="col-sm-offset-1 col-sm-9">
+        <section class="col-sm-offset-1 col-sm-9" ng-controller="UserController as ctrl" ng-init="initCreateUpdate()">
             <div class="row">
                 <article class="col-md-12">
+                    <h2>Création d'un utilisateur</h2>
+                    <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal" >
+                        <input type="hidden" ng-model="ctrl.user.id" />
 
-                Page de création de compte
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="ssoId">Nom d'utilisateur : </label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="ctrl.user.ssoId" id="ssoId" class="form-control input-sm" placeholder="Votre nom d'utilisateur" required ng-minlength="2"/>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.ssoId.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.ssoId.$error.minlength">Minimum 2 caractères</span>
+                                        <span ng-show="myForm.ssoId.$invalid">Le champ est invalide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="lastName">Nom : </label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="ctrl.user.lastName" id="lastName" class="form-control input-sm" placeholder="Votre nom" required ng-minlength="2"/>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.lastName.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.lastName.$error.minlength">Minimum 2 caractères</span>
+                                        <span ng-show="myForm.lastName.$invalid">Le champ est invalide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="firstName">Prénom : </label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="ctrl.user.firstName" id="firstName" class="form-control input-sm" placeholder="Votre prénom" required ng-minlength="2"/>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.firstName.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.firstName.$error.minlength">Minimum 2 caractères</span>
+                                        <span ng-show="myForm.firstName.$invalid">Le champ est invalide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="password">Mot de passe : </label>
+                                <div class="col-md-7">
+                                    <input type="password" ng-model="ctrl.user.password" id="password" class="form-control input-sm" placeholder="Votre mot de passe" required ng-minlength="8"/>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.password.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.password.$error.minlength">Minimum 8 caractères</span>
+                                        <span ng-show="myForm.password.$invalid">Le champ est invalide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="passwordConfirm">Confirmation du mot de passe : </label>
+                                <div class="col-md-7">
+                                    <input type="password" ng-model="ctrl.user.passwordConfirm" id="passwordConfirm" class="form-control input-sm" placeholder="Votre confirmation de mot de passe" required ng-minlength="8"  compare-to="ctrl.user.password"/>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.passwordConfirm.$error">Le mot de passe ne correspond pas</span>
+                                        <span ng-show="myForm.passwordConfirm.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.passwordConfirm.$error.minlength">Minimum 8 caractères</span>
+                                        <span ng-show="myForm.passwordConfirm.$invalid">Le champ est invalide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="email">Email : </label>
+                                <div class="col-md-7">
+                                    <input type="email" ng-model="ctrl.user.email" id="email" class="form-control input-sm" placeholder="Votre email" required ng-minlength="2"/>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.email.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.email.$error.minlength">Minimum 2 caractères</span>
+                                        <span ng-show="myForm.email.$invalid">Le champ est invalide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="bithDate">Date de naisance : </label>
+                                <div class="col-md-7">
+                                    <input type="datetime" ng-model="ctrl.user.bithDate" id="bithDate" class="form-control input-sm" placeholder="Votre date de naissance"/>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.bithDate.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.bithDate.$invalid">Le champ est invalide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="bithDate">Commune : </label>
+                                <div class="col-md-7">
+                                    <select  ng-model="ctrl.user.ville" ng-options="item as item.libelle for item in ctrl.communes" ></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable" for="bithDate">Roles : </label>
+                                <div class="col-md-7">
+                                    <select style="width: 100%;" size="5" ng-model="ctrl.user.userProfiles" multiple ng-multiple="true"
+                                            ng-options="item as item.type for item in ctrl.roles"></select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-actions floatRight">
+                                <input type="submit"  value="Créer" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
+                           </div>
+                        </div>
+                    </form>
                 </article>
             </div>
         </section>
@@ -35,5 +161,6 @@
 <script src="../webjars/jquery/3.1.1/jquery.min.js"  type="text/javascript"></script>
 <script src="../webjars/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../webjars/angularjs/1.4.4/angular.min.js" type="text/javascript"></script>
+<script src="../resources/js/UserController.js" type="text/javascript"></script>
 
 </html>

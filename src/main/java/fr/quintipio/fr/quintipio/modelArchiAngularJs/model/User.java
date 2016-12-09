@@ -46,6 +46,9 @@ public class User{
 	@Length(min= 8 ,max = 255)
     String password;
 
+	@Transient
+	transient String passwordConfirm;
+
 
 	@NotEmpty
 	@Column(name="FIRST_NAME", nullable=false)

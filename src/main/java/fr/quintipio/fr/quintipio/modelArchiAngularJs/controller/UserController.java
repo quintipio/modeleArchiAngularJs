@@ -4,14 +4,14 @@ import fr.quintipio.fr.quintipio.modelArchiAngularJs.model.User;
 import fr.quintipio.fr.quintipio.modelArchiAngularJs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,8 +24,9 @@ public class UserController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getAllUser() {
-        return userService.findAll();
+    public ResponseEntity<List<User>> getAllUser() {
+        List<User> liste = userService.findAll();
+        return new ResponseEntity<>(liste,(liste.isEmpty())?HttpStatus.NO_CONTENT:HttpStatus.OK);
     }
 
 
@@ -34,7 +35,22 @@ public class UserController {
     public ResponseEntity<User> deleteUser(@PathVariable("id") int id) {
         System.out.println("Suppression de l'utilisateur d'id : "+id);
         userService.delete(id);
-        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+        if(userService.isUserSsoIdUnique(user.getSsoId())) {
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+
+        userService.create(user);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("user/create/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
 
 }
