@@ -14,6 +14,8 @@ public interface UserService {
 
     public User findById(Integer id);
 
+    public User findBySSO(String ssoId);
+
     public boolean isUserSsoIdUnique(String ssoId);
 
     public void delete(Integer id);

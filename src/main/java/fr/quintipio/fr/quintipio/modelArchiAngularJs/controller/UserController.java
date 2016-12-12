@@ -52,5 +52,25 @@ public class UserController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Void> updateUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+
+        User userModif = userService.findById(user.getId());
+
+        userModif.setVille(user.getVille());
+        userModif.setUserProfiles(user.getUserProfiles());
+        userModif.setBirthDate(user.getBirthDate());
+        userModif.setEmail(user.getEmail());
+        userModif.setFirstName(user.getFirstName());
+        userModif.setLastName(user.getLastName());
+
+        userService.update(userModif);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("user/update/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.ACCEPTED);
+    }
+
 
 }

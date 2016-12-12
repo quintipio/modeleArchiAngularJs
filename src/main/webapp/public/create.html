@@ -122,19 +122,27 @@
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="col-md-2 control-lable" for="bithDate">Commune : </label>
+                                <label class="col-md-2 control-lable" for="commune">Commune : </label>
                                 <div class="col-md-7">
-                                    <select  ng-model="ctrl.user.ville" ng-options="item as item.libelle for item in ctrl.communes" ></select>
+                                    <select id="commune" ng-model="ctrl.user.ville" ng-options="item as item.libelle for item in ctrl.communes" ></select>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.commune.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.commune.$invalid">Le champ est invalide</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="col-md-2 control-lable" for="bithDate">Roles : </label>
+                                <label class="col-md-2 control-lable" for="roles">Roles : </label>
                                 <div class="col-md-7">
-                                    <select style="width: 100%;" size="5" ng-model="ctrl.user.userProfiles" multiple ng-multiple="true"
+                                    <select id="roles" required style="width: 100%;" size="5" ng-model="ctrl.user.userProfiles" multiple ng-multiple="true"
                                             ng-options="item as item.type for item in ctrl.roles"></select>
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.roles.$error.required">Champs obligatoire</span>
+                                        <span ng-show="myForm.roles.$invalid">Le champ est invalide</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findBySSO(String ssoId) {
+        return userDao.findBySsoId(ssoId);
+    }
+
+    @Override
     public boolean isUserSsoIdUnique(String ssoId) {
         return userDao.findBySsoId(ssoId) != null;
     }
